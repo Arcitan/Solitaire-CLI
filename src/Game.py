@@ -34,11 +34,16 @@ class Game:
         Moves a card from the stock to the waste pile.
         :return: True if it was successful, False otherwise.
         """
+        # If both the stock and waste are empty, then we can't do anything
         if len(self.stock) == 0 and len(self.waste) == 0:
             print("There are no cards left to move!")
             return False
+        # If only the stock is empty, first take everything in the waste and re-add it to the stock (upside-down)
         elif len(self.stock) == 0:
             self.waste.cards.reverse()
             self.stock.refill(self.waste.deal(len(self.waste), face_up=False))
+        # Take the top card from the stock and add it face-up to the waste
+        self.waste.add_card(self.stock.deal(face_up=True))
+        return True
 
 
