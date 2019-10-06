@@ -17,7 +17,7 @@ class Game:
         Constructor for the game object. Handles initial setup.
         """
         self.stock = Stock()
-        self.foundations = [Foundation(suit) for suit in SUITS]
+        self.foundations = {suit: Foundation(suit) for suit in SUITS}
         self.waste = Waste()
         # Deal cards face-down into each of the seven tableaus from the stock.
         # Each tableau has as many cards as its number.
@@ -71,14 +71,40 @@ class Game:
 
     def waste_to_tableau(self, dest_num):
         """
-        Moves a card from the top of the waste pile to the top of a tableau.
-        :param dest: A Tableau object. Where the card will be attached to.
+        Moves a card (as a CardSequence) from the top of the waste pile to the top of a tableau.
+        :param dest_num: The number of the destination Tableau. Must be between 1-7.
         :return: True if successful, False otherwise.
         """
+        if not 1 <= dest_num <= 7:
+            print("Invalid tableau number specified. Must between 1-7.")
+            return False
         dest = self.tableaus[dest_num - 1]
         card = CardSequence(self.waste.deal(face_up=True))
         if dest.add_card_sequence(card):
             return True
         else:
+            # we were unsuccessful, so put the card back
+            self.waste.add_card(card)
             return False
+
+    def tableau_to_foundation(self, source_num, suit):
+        """
+        Moves a card from the top of one tableau to a foundation.
+        :param source_num: The number of the source Tableau. Must be between 1-7.
+        :param suit: The Foundation type.
+        :return: True if successful, False otherwise
+        """
+        if not 1 <= source_num <= 7:
+            print("Invalid tableau number specified. Must between 1-7.")
+            return False
+        source = self.tableaus[source_num - 1]
+        dest = self.foundations[suit]
+        card = CardSequence(source.deal(face_up=True))
+        if dest.add_card(card):
+            return True
+        else:
+            # we were unsuccessful, so put the card back
+            source.add_card_sequence(card)
+            return False
+
 

@@ -15,10 +15,10 @@ class Waste(CardStack):
     def add_card(self, card):
         """
         Adds a card face-up to the waste stack.
-        :param card: A Card object.
+        :param card: A CardSequence object.
         :return: True if successful, False otherwise.
         """
-        self.cards.append(card.flip_up())
+        self.cards.append(card.cards[0].flip_up())
 
     def __repr__(self):
         """

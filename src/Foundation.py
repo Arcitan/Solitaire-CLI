@@ -25,12 +25,15 @@ class Foundation(CardStack):
     def add_card(self, card):
         """
         Adds a card to the foundation, if it's valid to do so.
-        :param card: A Card object.
+        :param card: A CardSequence object.
+        :return: True if successful, False otherwise.
         """
-        if card.suit == self.suit and card.value > self.peek_top().value:
+        if card.cards[0].suit == self.suit and card.cards[0].value > self.peek_top().value:
             self.cards.append(card)
+            return True
         else:
             print(f"Cannot add {card} to the {self.suit} foundation.")
+            return False
 
     def __repr__(self):
         """
