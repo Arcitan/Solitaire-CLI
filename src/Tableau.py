@@ -20,15 +20,19 @@ class Tableau(CardStack):
         """
         Adds a sequence of cards to the top of the tableau, if it's valid to be added.
         :param card_seq: A CardSequence object.
+        :return: True if successful, False otherwise.
         """
         # If the Tableau is empty, only a King can be added
         if self.is_empty() and card_seq.peek_bottom().rank == "K":
             self.flipped.extend(card_seq.cards)
+            return True
         # Otherwise, only add if it's valid to attach the CardSeq to the top of the flipped cards
         elif card_seq.peek_bottom().can_attach_to(self.peek_top()):
             self.flipped.extend(card_seq.cards)
+            return True
         else:
-            raise ValueError("The provided CardSequence cannot be added.")
+            print("The provided CardSequence cannot be added.")
+            return False
 
     def is_empty(self):
         """
