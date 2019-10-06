@@ -30,6 +30,11 @@ At any point in the game, you can enter the command `\help` to re-display the li
 be allowed to execute commands that are legal moves under the Solitaire rules linked above. If you attempt to execute a
 move that is not legal, you'll see an error message and you'll be prompted to re-enter a valid move. 
 
+Note that because I couldn't find a universal way to display the color of cards across all terminals, each card's string
+representation is only going to tell you its rank and suit. But it's always the case that hearts and diamonds are one color, 
+and clubs and spades are another color, so the task of matching opposite colors is the same as matching a heart/diamond with a 
+club/spade. 
+
 
 ## Design Choices
 I chose to go with a fairly OOP-heavy approach, as I feel that the design of Solitaire lends itself really nicely to 
