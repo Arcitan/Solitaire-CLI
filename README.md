@@ -39,7 +39,8 @@ stack, but with a little extra details for handling flipping cards up and down. 
 of managing different stacks, it made sense to me to have everything inherit from `CardStack`.
 
 I also have the `Card` class represent a typical playing card. It has all the standard fields you'd expect: rank, suit,
-color, value (the numerical version of its rank), and whether it's flipped up or down. 
+color, value (the numerical version of its rank), and whether it's flipped up or down. Cards that are flipped up will 
+display their rank and suit, but cards that are flipped down will have their rank and suit hidden. 
 
 To handle moving cards around the board, I chose to implement the `CardSequence` class, which I used to determine 
 whether the sequence of cards was valid to be moved in the first place. The inspiration for this class came from the 
