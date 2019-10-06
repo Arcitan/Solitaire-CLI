@@ -66,7 +66,7 @@ class Card:
         :return: The string representation of a card.
         """
         if self.face_down:
-            return "--"
+            return "[*]"
         return f"[{self.rank}{SUITS_SYMBOLS[self.color][self.suit]}]"
 
     def flip_up(self):

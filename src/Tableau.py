@@ -48,7 +48,7 @@ class Tableau(CardStack):
         """
         string = ""
         for card in self.unflipped + self.flipped:
-            string = string + str(card) + "\n"
+            string = string + str(card)
         return string
 
 
