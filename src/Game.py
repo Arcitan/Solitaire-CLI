@@ -47,15 +47,38 @@ class Game:
         self.waste.add_card(self.stock.deal(face_up=True))
         return True
 
-    def tableau_to_tableau(self, source, dest):
+    def tableau_to_tableau(self, source_num, dest_num):
         """
         Moves a CardSequence from the top of one tableau and attaches it to the top of another.
-        :param source: A Tableau object. Where the CardSequence is being taken from.
-        :param tab2: A Tableau object. Where the CardSequence is going to be attached to.
+        :param source_num: The number of the source Tableau. Must be between 1-7.
+        :param dest_num: the number of the destination Tableau. Must be between 1-7.
         :return: True if successful, False otherwise.
         """
+        if not (1 <= source_num <=7 and 1 <= dest_num <= 7):
+            print("Invalid tableau numbers specified. Must be between 1-7.")
+            return False
+        source = self.tableaus[source_num - 1]
+        dest = self.tableaus[dest_num - 1]
         # Take all the flipped cards from the top of the source
         moved_cards = CardSequence(source.deal(len(source)))
-
         # and attempt to add them to the destination
-        return dest.add_card_sequence(moved_cards)
+        if dest.add_card_sequence(moved_cards):
+            return True
+        else:
+            # we were unsuccessful, so put the cards back
+            source.add_card_sequence(moved_cards)
+            return False
+
+    def waste_to_tableau(self, dest_num):
+        """
+        Moves a card from the top of the waste pile to the top of a tableau.
+        :param dest: A Tableau object. Where the card will be attached to.
+        :return: True if successful, False otherwise.
+        """
+        dest = self.tableaus[dest_num - 1]
+        card = CardSequence(self.waste.deal(face_up=True))
+        if dest.add_card_sequence(card):
+            return True
+        else:
+            return False
+

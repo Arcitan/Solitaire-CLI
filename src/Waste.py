@@ -16,6 +16,7 @@ class Waste(CardStack):
         """
         Adds a card face-up to the waste stack.
         :param card: A Card object.
+        :return: True if successful, False otherwise.
         """
         self.cards.append(card.flip_up())
 
