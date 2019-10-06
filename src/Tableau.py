@@ -12,7 +12,7 @@ class Tableau(CardStack):
         :param cards: A list of face-down Card objects.
         """
         super().__init__()
-        self.unflipped = cards
+        self.unflipped = cards.copy()
         self.cards.append(self.unflipped.pop().flip_up())
         self.flipped = self.cards   # let flipped point to cards, so the peek/deal methods work only on flipped cards
 

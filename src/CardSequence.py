@@ -17,8 +17,8 @@ class CardSequence(CardStack):
         """
         super().__init__()
         # Construct the CardSequence based on the data definition
-        self.cards.append(cards.pop(0))
-        for card in cards:
+        self.cards.append(cards[0])
+        for card in cards[1:]:
             if card.can_attach_to(self.peek_top()):
                 self.cards.append(card)
             else:
