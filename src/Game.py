@@ -3,6 +3,7 @@ from src.Stock import Stock, SUITS
 from src.Foundation import Foundation
 from src.Waste import Waste
 from src.Tableau import Tableau
+from src.CardSequence import CardSequence
 
 BREAK_STRING = "================================================================================="
 
@@ -46,4 +47,15 @@ class Game:
         self.waste.add_card(self.stock.deal(face_up=True))
         return True
 
+    def tableau_to_tableau(self, source, dest):
+        """
+        Moves a CardSequence from the top of one tableau and attaches it to the top of another.
+        :param source: A Tableau object. Where the CardSequence is being taken from.
+        :param tab2: A Tableau object. Where the CardSequence is going to be attached to.
+        :return: True if successful, False otherwise.
+        """
+        # Take all the flipped cards from the top of the source
+        moved_cards = CardSequence(source.deal(len(source)))
 
+        # and attempt to add them to the destination
+        return dest.add_card_sequence(moved_cards)
