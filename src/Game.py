@@ -29,7 +29,7 @@ class Game:
         Checks if all the foundations are full.
         :return: True if they are, False otherwise.
         """
-        return all((foundation.is_full() for foundation in self.foundations))
+        return all((foundation.is_full() for foundation in self.foundations.values()))
 
     def stock_to_waste(self):
         """
@@ -45,7 +45,8 @@ class Game:
             self.waste.cards.reverse()
             self.stock.refill(self.waste.deal(len(self.waste), face_up=False))
         # Take the top card from the stock and add it face-up to the waste
-        self.waste.add_card(self.stock.deal(face_up=True))
+        card = CardSequence(self.stock.deal(face_up=True))
+        self.waste.add_card(card)
         return True
 
     def tableau_to_tableau(self, source_num, dest_num):
@@ -55,6 +56,11 @@ class Game:
         :param dest_num: the number of the destination Tableau. Must be between 1-7.
         :return: True if successful, False otherwise.
         """
+        if not dest_num.isdigit() or not source_num.isdigit():
+            print("Invalid tableau number specified. Must between 1-7.")
+            return False
+        dest_num = int(dest_num)
+        source_num = int(source_num)
         if not (1 <= source_num <= 7 and 1 <= dest_num <= 7):
             print("Invalid tableau numbers specified. Must be between 1-7.")
             return False
@@ -76,6 +82,10 @@ class Game:
         :param dest_num: The number of the destination Tableau. Must be between 1-7.
         :return: True if successful, False otherwise.
         """
+        if not dest_num.isdigit():
+            print("Invalid tableau number specified. Must between 1-7.")
+            return False
+        dest_num = int(dest_num)
         if not 1 <= dest_num <= 7:
             print("Invalid tableau number specified. Must between 1-7.")
             return False
@@ -91,9 +101,19 @@ class Game:
     def waste_to_foundation(self, suit):
         """
         Moves a card (as a CardSequence) from the top of the waste to the <suit> foundation.
-        :param suit: The
-        :return:
+        :param suit: The Foundation type.
+        :return: True if successful, False otherwise.
         """
+        if suit not in SUITS:
+            print("Invalid suit specified. Must be one of: clubs/diamonds/hearts/spades.")
+            return False
+        card = CardSequence(self.waste.deal(face_up=True))
+        dest = self.foundations[suit]
+        if dest.add_card(card):
+            return True
+        else:
+            self.waste.add_card(card)
+            return False
 
     def tableau_to_foundation(self, source_num, suit):
         """
@@ -102,6 +122,10 @@ class Game:
         :param suit: The Foundation type.
         :return: True if successful, False otherwise
         """
+        if not source_num.isdigit():
+            print("Invalid tableau number specified. Must between 1-7.")
+            return False
+        source_num = int(source_num)
         if not 1 <= source_num <= 7:
             print("Invalid tableau number specified. Must between 1-7.")
             return False
@@ -113,42 +137,39 @@ class Game:
         card = CardSequence(source.deal(face_up=True))
         if dest.add_card(card):
             return True
-        else:
-            # we were unsuccessful, so put the card back
+        else: # we were unsuccessful, so put the card back
             source.add_card_sequence(card)
             return False
 
     @staticmethod
-    def show_possible_moves(self):
+    def show_possible_moves():
         """
         Prints the list of possible moves.
         :return: A string of possible moves.
         """
-        string = "Possible moves: \n " \
-                 "\tsw - Moves a card from Stock to Waste." \
-                 "\twf <suit> - Moves a card from Waste to the <suit> Foundation. Suit must be one of: " \
-                 "clubs/diamonds/hearts/spades." \
-                 "\twt <tableau_num> - Moves a card from Waste to the <tableau_num> Tableau. <tableau_num> must be " \
-                 "between 1 and 7, inclusive. " \
-                 "\ttf <tableau_num> <suit> - Moves a card from the <tableau_num> Tableau to the <suit> foundation. " \
-                 "Same input rules as above. " \
-                 "\ttt <num_1> <num_2> - Moves all face-up cards from <num_1> Tableau to <num_2> Tableau. Same input " \
-                 "rules as above. " \
-                 "\thelp - Displays all possible moves. " \
-                 "\tquit - Quit the game."
-        print(string)
+        print("Possible moves:")
+        print("\t\\sw - Moves a card from Stock to Waste.")
+        print("\t\\wf <suit> - Moves a card from Waste to the <suit> Foundation. Suit must be one of: "
+              "clubs/diamonds/hearts/spades.")
+        print("\t\\wt <tableau_num> - Moves a card from Waste to the <tableau_num> Tableau. <tableau_num> must be "
+              "between 1 and 7, inclusive. ")
+        print("\t\\tf <tableau_num> <suit> - Moves a card from the <tableau_num> Tableau to the <suit> foundation. "
+              "Same input rules as above. ")
+        print("\t\\tt <num_1> <num_2> - Moves all face-up cards from <num_1> Tableau to <num_2> Tableau. Same input "
+              "rules as above. ")
+        print("\t\\help - Displays all possible moves. ")
+        print("\t\\quit - Quit the game.\n")
 
     def display_board(self):
         """
         Displays the game board in a user-friendly visual format.
         :return: A string representing the game board.
         """
-        string = f"{BREAK_STRING}\n" \
-                 f"STOCK \t WASTE \t\t\t\tFOUNDATION\n" \
-                 f"{self.stock}\t{self.waste}\t\t\t\t{self.foundations['clubs']}\t{self.foundations['diamonds']}" \
-                 f"\t{self.foundations['hearts']}\t{self.foundations['spades']}\n" \
-                 f"\nTABLEAU\n"
-        tableaus = "\n".join((f"{num} {self.tableaus[num-1]}" for num in range(1, 8)))
-        string += f"{tableaus}\n" \
-                  f"{BREAK_STRING}\n"
-        print(string)
+        print(f"{BREAK_STRING}\n")
+        print(f"STOCK \t WASTE \t\t\tFOUNDATION\n")
+        print(f"{self.stock}\t{self.waste}\t\t\t\t{self.foundations['clubs']}\t{self.foundations['diamonds']}"
+              f"\t{self.foundations['hearts']}\t{self.foundations['spades']}\n")
+        print(f"\nTABLEAU\n")
+        for num in range(1, 8):
+            print(f"{num} {self.tableaus[num-1]}")
+        print(f"{BREAK_STRING}\n")

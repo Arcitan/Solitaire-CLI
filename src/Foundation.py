@@ -28,7 +28,9 @@ class Foundation(CardStack):
         :param card: A CardSequence object.
         :return: True if successful, False otherwise.
         """
-        if card.cards[0].suit == self.suit and card.cards[0].value > self.peek_top().value:
+        if self.is_empty() and card.cards[0].suit == "A":
+            self.cards.append(card)
+        elif card.cards[0].suit == self.suit and card.cards[0].value > self.peek_top().value:
             self.cards.append(card)
             return True
         else:

@@ -39,4 +39,9 @@ class Stock(CardStack):
         Constructs the string representation of the stock.
         :return: The string representation.
         """
-        return "[[[*]"
+        if len(self) > 1:
+            return "[[[*]"
+        elif len(self):
+            return "[*]"
+        else:
+            return ""
