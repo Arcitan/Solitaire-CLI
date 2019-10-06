@@ -43,13 +43,13 @@ class CardStack:
         :return: If num > 1, returns a list of the top *num* cards. Otherwise, just returns a single Card object.
         """
         if self.is_empty():
-            raise print("Cannot deal out of an empty stack.")
+            raise ValueError("Cannot deal out of an empty stack.")
         if num > len(self.cards):
-            return print("Cannot deal more cards than are in the stack.")
+            raise ValueError("Cannot deal more cards than are in the stack.")
         if face_up:
-            return [self.cards.pop().flip_up() for _ in range(num)]
+            return list(reversed([self.cards.pop().flip_up() for _ in range(num)]))
         else:
-            return [self.cards.pop().flip_down() for _ in range(num)]
+            return list(reversed([self.cards.pop().flip_down() for _ in range(num)]))
 
     def __len__(self):
         """

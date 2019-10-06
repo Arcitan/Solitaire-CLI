@@ -5,6 +5,8 @@ from src.Card import Card
 
 
 SUITS = ["spades", "hearts", "diamonds", "clubs"]
+BLACK_SUITS = ["spades", "clubs"]
+WHITE_SUITS = ["hearts", "diamonds"]
 COLORS = ["white", "black"]
 RANKS = ["A"] + list(map(str, range(2, 11))) + ["J", "K", "Q"]
 
@@ -18,7 +20,10 @@ class Stock(CardStack):
         Constructor for the stock. Initially contains all 52 cards face-down.
         """
         super().__init__()
-        self.cards = [Card(color, rank, suit, True) for color in COLORS for rank in RANKS for suit in SUITS]
+        # spades and clubs are black
+        self.cards.extend([Card("black", rank, suit, True) for rank in RANKS for suit in BLACK_SUITS])
+        # hearts and diamonds are white
+        self.cards.extend([Card("white", rank, suit, True) for rank in RANKS for suit in WHITE_SUITS])
         self.shuffle()
 
     def shuffle(self):
@@ -44,4 +49,4 @@ class Stock(CardStack):
         elif len(self):
             return "[*]"
         else:
-            return ""
+            return "   "

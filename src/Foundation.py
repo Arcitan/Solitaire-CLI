@@ -28,13 +28,18 @@ class Foundation(CardStack):
         :param card: A CardSequence object.
         :return: True if successful, False otherwise.
         """
-        if self.is_empty() and card.cards[0].suit == "A":
-            self.cards.append(card)
-        elif card.cards[0].suit == self.suit and card.cards[0].value > self.peek_top().value:
-            self.cards.append(card)
+        if self.is_empty():
+            if card.cards[0].suit == self.suit and card.cards[0].rank == "A":
+                self.cards.append(card.cards[0])
+                return True
+            else:
+                print(f"Cannot add {card} to the {self.suit} foundation.")
+                return False
+        if card.cards[0].suit == self.suit and card.cards[0].value == self.peek_top().value + 1:
+            self.cards.append(card.cards[0])
             return True
         else:
-            print(f"Cannot add {card} to the {self.suit} foundation.")
+            print(f"Cannot add {card.card[0]} to the {self.suit} foundation.")
             return False
 
     def __repr__(self):

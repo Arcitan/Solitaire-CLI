@@ -30,5 +30,5 @@ class Waste(CardStack):
         elif len(self):
             return str(self.peek_top())
         else:
-            return ""
+            return "   "
 

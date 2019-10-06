@@ -34,6 +34,40 @@ class Tableau(CardStack):
             print("The provided CardSequence cannot be added.")
             return False
 
+    def deal(self, num=1, face_up=True):
+        """
+        Returns all the face-up cards, removes them from the stack, then flips over the first unflipped card.
+        Overrides from CardStack.
+        :param num: The number of cards to peek at. Default is 1.
+        :param face_up: Whether the cards are dealt face-up or face-down. Default is True (i.e. face-up).
+        :return: If num > 1, returns a list of the top *num* cards. Otherwise, just returns a single Card object.
+        """
+        if self.is_empty():
+            return print("Cannot deal from an empty stack.")
+        if face_up:
+            removed = list(reversed([self.cards.pop().flip_up() for _ in range(num)]))
+            if self.unflipped:
+                self.flipped.append(self.unflipped.pop().flip_up())
+            return removed
+        else:
+            removed = list(reversed([self.cards.pop().flip_down() for _ in range(num)]))
+            if self.unflipped:
+                self.flipped.append(self.unflipped.pop().flip_up())
+            return removed
+
+    def revert(self, dealt_cards):
+        """
+        Takes the top unflipped card and places it back into the unflipped pile. Only used when we dealt out cards
+        incorrectly, and we need to undo our changes.
+        :param dealt_cards: A CardSequence object.
+        :return: This object.
+        """
+        if self.flipped:
+            self.unflipped.append(self.flipped.pop().flip_down())
+        self.flipped.extend(dealt_cards.cards)
+        return self
+
+
     def is_empty(self):
         """
         Determines whether the Tableau is empty. Overrides from CardStack.

@@ -24,6 +24,7 @@ $$    $$/ $$    $$/ $$ |$$ |  $$  $$/ $$    $$ |$$ |$$ |      $$       |
         command = input("Please enter a move: ")
         command_parts = command.lower().lstrip().rstrip().split()
 
+        # noinspection PyBroadException
         if command_parts[0] == "\\quit":
             print("Thank you for playing. Goodbye!")
             break
@@ -32,13 +33,25 @@ $$    $$/ $$    $$/ $$ |$$ |  $$  $$/ $$    $$ |$$ |$$ |      $$       |
         elif command_parts[0] == "\\sw":
             game.stock_to_waste()
         elif command_parts[0] == "\\wf":
-            game.waste_to_foundation(command_parts[1])
+            try:
+                game.waste_to_foundation(command_parts[1])
+            except IndexError:
+                print("Please provide all arguments for this move!")
         elif command_parts[0] == "\\wt":
-            game.waste_to_tableau(command_parts[1])
+            try:
+                game.waste_to_tableau(command_parts[1])
+            except IndexError:
+                print("Please provide all arguments for this move!")
         elif command_parts[0] == "\\tf":
-            game.tableau_to_foundation(command_parts[1], command_parts[2])
+            try:
+                game.tableau_to_foundation(command_parts[1], command_parts[2])
+            except IndexError:
+                print("Please provide all arguments for this move!")
         elif command_parts[0] == "\\tt":
-            game.tableau_to_tableau(command_parts[1], command_parts[2])
+            try:
+                game.tableau_to_tableau(command_parts[1], command_parts[2])
+            except IndexError:
+                print("Please provide all arguments for this move!")
         else:
             print("Invalid move entered. Please enter a valid move. Type '\\help' to see a list of valid moves.")
 

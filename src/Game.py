@@ -73,7 +73,7 @@ class Game:
             return True
         else:
             # we were unsuccessful, so put the cards back
-            source.add_card_sequence(moved_cards)
+            source.revert(moved_cards)
             return False
 
     def waste_to_tableau(self, dest_num):
@@ -137,8 +137,9 @@ class Game:
         card = CardSequence(source.deal(face_up=True))
         if dest.add_card(card):
             return True
-        else: # we were unsuccessful, so put the card back
-            source.add_card_sequence(card)
+        else:
+            # we were unsuccessful, so put the card back
+            source.revert(card)
             return False
 
     @staticmethod
@@ -167,8 +168,8 @@ class Game:
         """
         print(f"{BREAK_STRING}\n")
         print(f"STOCK \t WASTE \t\t\tFOUNDATION\n")
-        print(f"{self.stock}\t{self.waste}\t\t\t\t{self.foundations['clubs']}\t{self.foundations['diamonds']}"
-              f"\t{self.foundations['hearts']}\t{self.foundations['spades']}\n")
+        print(f"{self.stock}\t{self.waste}\t\t\t\t{self.foundations['clubs']} \t{self.foundations['diamonds']} "
+              f"\t{self.foundations['hearts']} \t{self.foundations['spades']}\n")
         print(f"\nTABLEAU\n")
         for num in range(1, 8):
             print(f"{num} {self.tableaus[num-1]}")
