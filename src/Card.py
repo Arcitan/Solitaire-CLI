@@ -1,11 +1,11 @@
-SUITS_SYMBOLS = {"white": {"spades": u"\u2664",
-                           "hearts": u"\u2661",
-                           "diamonds": u"\u2662",
-                           "clubs": u"\u2667"},
-                 "black": {"spades": u"\u2660",
-                           "hearts": u"\u2665",
-                           "diamonds": u"\u2666",
-                           "clubs": u"\u2663"}}
+# SUITS_SYMBOLS = {"white": {"spades": u"\u2664",
+#                            "hearts": u"\u2661",
+#                            "diamonds": u"\u2662",
+#                            "clubs": u"\u2667"},
+#                  "black": {"spades": u"\u2660",
+#                            "hearts": u"\u2665",
+#                            "diamonds": u"\u2666",
+#                            "clubs": u"\u2663"}}
 
 
 class Card:
@@ -67,7 +67,9 @@ class Card:
         """
         if self.face_down:
             return "[*]"
-        return f"[{self.rank}{SUITS_SYMBOLS[self.color][self.suit]}]"
+        # return f"[{self.rank}{SUITS_SYMBOLS[self.color][self.suit]}]"
+        color = "W" if self.color == "white" else "B"
+        return f"[{self.rank} of {self.suit}]"
 
     def flip_up(self):
         """

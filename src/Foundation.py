@@ -1,6 +1,6 @@
 # import dependencies
 from src.CardStack import CardStack
-from src.Card import SUITS_SYMBOLS
+# from src.Card import SUITS_SYMBOLS
 
 
 class Foundation(CardStack):
@@ -52,4 +52,5 @@ class Foundation(CardStack):
         elif len(self):
             return str(self.peek_top())
         else:
-            return f"({SUITS_SYMBOLS['black'][self.suit]})"
+            # return f"({SUITS_SYMBOLS['black'][self.suit]})"
+            return f"({self.suit})"
