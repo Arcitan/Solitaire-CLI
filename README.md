@@ -55,10 +55,7 @@ Finally, I have all the game logic abstracted away in the `Game` class, which ha
 the game, and I have all the driver code and input handling in the `main()` method.
 
 ## Libraries and Tools
-I chose to implement this in Python, because it's clean, (often) functional, and simple. It's also my most 
-comfortable language, so it's usually my go-to. Because I chose such an OOP-heavy approach, though, it may have made 
-more sense to go with a more OOP-dedicated language, like Java, where I could make `CardStack` an interface and
-explicitly enforce my data contracts via public getters/setters. 
+I chose to implement this in Python, because it's clean, functional, and simple, and it had everything I needed right out of the box, without too much complication (inheritance, classes, dynamic lists, etc.). It's also my most comfortable language, so it's usually my go-to. 
 
 As far as Python packages go, I used the `random` module to assist with shuffling the deck, and that's it. Again, 
 because of time constraints, I opted not to write a full collection of unit tests, and instead just tested my code 
