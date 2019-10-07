@@ -33,7 +33,7 @@ class Foundation(CardStack):
                 self.cards.append(card.cards[0])
                 return True
             else:
-                print(f"Cannot add {card} to the {self.suit} foundation.")
+                print(f"Cannot add {card.peek_top()} to the {self.suit} foundation.")
                 return False
         if card.cards[0].suit == self.suit and card.cards[0].value == self.peek_top().value + 1:
             self.cards.append(card.cards[0])
