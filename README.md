@@ -1,6 +1,6 @@
 # Solitaire-CLI 
 
-This was created as part of the coding challenge for the KP Enginering 
+This was created as part of the coding challenge for the KP Engineering 
 Fellows Program (Summer 2020). 
 
 If you're not familiar with the rules for Solitaire, you can read up on 
@@ -30,17 +30,14 @@ At any point in the game, you can enter the command `\help` to re-display the li
 be allowed to execute commands that are legal moves under the Solitaire rules linked above. If you attempt to execute a
 move that is not legal, you'll see an error message and you'll be prompted to re-enter a valid move. 
 
-Note that because I couldn't find a universal way to display the color of cards across all terminals, each card's string
-representation is only going to tell you its rank and suit. But it's always the case that hearts and diamonds are one color, 
-and clubs and spades are another color, so the task of matching opposite colors is the same as matching a heart/diamond with a 
-club/spade. 
-
+Note that because I couldn't find a universal way to display the color of cards across all terminals (I had originally opted
+for UTF-8 symbols, but had trouble getting them to display properly across all possible consoles), each card's string
+representation is only going to tell you its rank and suit. But, in a typical playing card deck, it's always the case that hearts and diamonds are one color, and clubs and spades are another color, so the task of matching opposite colors is the same as matching a heart/diamond with a club/spade. 
 
 ## Design Choices
 I chose to go with a fairly OOP-heavy approach, as I feel that the design of Solitaire lends itself really nicely to 
 OOP. At the core of my implementation lies the `CardStack` abstract base class, which is inherited by 
-the `Stock`, `Waste`, `Foundation`, and `Tableau` classes. The `CardStack` abstract class is basically just a normal LIFO
-stack, but with a little extra details for handling flipping cards up and down. Because Solitaire is really just a game
+the `CardSequence`, `Stock`, `Waste`, `Foundation`, and `Tableau` classes. The `CardStack` abstract class is basically just a normal LIFO stack, but with a little extra details for handling flipping cards up and down. Because Solitaire is really just a game
 of managing different stacks, it made sense to me to have everything inherit from `CardStack`.
 
 I also have the `Card` class represent a typical playing card. It has all the standard fields you'd expect: rank, suit,
@@ -53,7 +50,7 @@ observation that the only valid sequences that could be moved were those that we
 "descending" in value.
 
 Because of time constraints, I was a little loose and fast with designing my APIs for my different classes, and don't 
-always have nice getters/setters. Going forward, I'd really like to clean up my external methods for each class, and
+always have explicit getters/setters. Going forward, I'd really like to clean up my external methods for each class, and
 have everything nicely encapsulated and functional. 
 
 Finally, I have all the game logic abstracted away in the `Game` class, which handles executing all the valid moves of 
