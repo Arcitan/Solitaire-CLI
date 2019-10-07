@@ -39,7 +39,7 @@ club/spade.
 ## Design Choices
 I chose to go with a fairly OOP-heavy approach, as I feel that the design of Solitaire lends itself really nicely to 
 OOP. At the core of my implementation lies the `CardStack` abstract base class, which is inherited by 
-the `Stock`, `Waste`, `Foundation`, and `Tableau` classes. The `CardStack` abstract class is basically just a normal 
+the `Stock`, `Waste`, `Foundation`, and `Tableau` classes. The `CardStack` abstract class is basically just a normal LIFO
 stack, but with a little extra details for handling flipping cards up and down. Because Solitaire is really just a game
 of managing different stacks, it made sense to me to have everything inherit from `CardStack`.
 
