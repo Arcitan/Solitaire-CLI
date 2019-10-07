@@ -25,7 +25,9 @@ $$    $$/ $$    $$/ $$ |$$ |  $$  $$/ $$    $$ |$$ |$$ |      $$       |
         command_parts = command.lower().lstrip().rstrip().split()
 
         # noinspection PyBroadException
-        if command_parts[0] == "\\quit":
+        if not command or not command_parts:
+            print("No move entered. Please provide a valid move.")
+        elif command_parts[0] == "\\quit":
             print("Thank you for playing. Goodbye!")
             break
         elif command_parts[0] == "\\help":
