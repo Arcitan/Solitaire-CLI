@@ -174,8 +174,8 @@ class Game:
         """
         print(f"{BREAK_STRING}\n")
         print(f"STOCK \t WASTE \t\t\t\tFOUNDATION\n")
-        print(f"{self.stock}\t{self.waste}\t\t\t\t{self.foundations['clubs']} \t{self.foundations['diamonds']} "
-              f"\t{self.foundations['hearts']} \t{self.foundations['spades']}\n")
+        print(f"{self.stock}\t{self.waste}\t\t\t\t{self.foundations['clubs']}\t{self.foundations['diamonds']}"
+              f"\t{self.foundations['hearts']}\t{self.foundations['spades']}\n")
         print(f"\nTABLEAU\n")
         for num in range(1, 8):
             print(f"{num} {self.tableaus[num-1]}")

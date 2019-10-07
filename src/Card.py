@@ -68,7 +68,6 @@ class Card:
         if self.face_down:
             return "[*]"
         # return f"[{self.rank}{SUITS_SYMBOLS[self.color][self.suit]}]"
-        color = "W" if self.color == "white" else "B"
         return f"[{self.rank} of {self.suit}]"
 
     def flip_up(self):

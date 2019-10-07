@@ -67,7 +67,6 @@ class Tableau(CardStack):
         self.flipped.extend(dealt_cards.cards)
         return self
 
-
     def is_empty(self):
         """
         Determines whether the Tableau is empty. Overrides from CardStack.
