@@ -89,6 +89,9 @@ class Game:
         if not 1 <= dest_num <= 7:
             print("Invalid tableau number specified. Must between 1-7.")
             return False
+        if self.waste.is_empty():
+            print("Waste is empty -- there's nothing to move out of it!")
+            return False
         dest = self.tableaus[dest_num - 1]
         card = CardSequence(self.waste.deal(face_up=True))
         if dest.add_card_sequence(card):
@@ -106,6 +109,9 @@ class Game:
         """
         if suit not in SUITS:
             print("Invalid suit specified. Must be one of: clubs/diamonds/hearts/spades.")
+            return False
+        if self.waste.is_empty():
+            print("Waste is empty -- there's nothing to move out of it!")
             return False
         card = CardSequence(self.waste.deal(face_up=True))
         dest = self.foundations[suit]
