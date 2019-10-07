@@ -15,7 +15,7 @@ python solitaire.py
 ```
 
 ## How to Play
-Upon startup, you will see a welcome screen followed by a prompt to enter a move command. The move commands
+Upon startup, you will see a welcome screen followed by a prompt to enter a move command. For the best experience, make sure your terminal window size is wide enough to accomodate the entire game board. The move commands
 are as follows: 
 ```bash
 \sw - Moves a card from Stock to Waste.
