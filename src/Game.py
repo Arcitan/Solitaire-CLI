@@ -173,7 +173,7 @@ class Game:
         :return: A string representing the game board.
         """
         print(f"{BREAK_STRING}\n")
-        print(f"STOCK \t WASTE \t\t\tFOUNDATION\n")
+        print(f"STOCK \t WASTE \t\t\t\tFOUNDATION\n")
         print(f"{self.stock}\t{self.waste}\t\t\t\t{self.foundations['clubs']} \t{self.foundations['diamonds']} "
               f"\t{self.foundations['hearts']} \t{self.foundations['spades']}\n")
         print(f"\nTABLEAU\n")
