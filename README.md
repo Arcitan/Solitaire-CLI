@@ -26,6 +26,8 @@ are as follows:
 \help - Displays all possible moves.
 \quit - Quit the game.
 ```
+In general, the commands follow the structure of (source) -> (desination). So, e.g. `\sw` moves from a card from the (s)tock to (w)aste, and `\tf 2 hearts` moves a card from (t)ableau (2) to (f)oundation (hearts). 
+
 At any point in the game, you can enter the command `\help` to re-display the list of all valid commands. You will only 
 be allowed to execute commands that are legal moves under the Solitaire rules linked above. If you attempt to execute a
 move that is not legal, you'll see an error message and you'll be prompted to re-enter a valid move. 
